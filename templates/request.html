@@ -1,0 +1,30 @@
+﻿{% extends "layout.html" %}
+
+{% block title %}Request a New Event{% endblock %}
+
+{% block navlink %}
+<li><a href="{{url_for('request_event')}}">Request a New Event</a></li>
+{% endblock %}
+
+{% block content %}
+{% if error %}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="alert-heading">Error!</h4>
+    <p>{{error}}</p>
+</div>
+{% endif %}
+
+<h2>{{self.title()}}</h2>
+<form action="" method="post">
+    <div class="form-group">
+        <dl>
+            <dt>Event Name:
+            <dd><input type="text" name="name" size="30" value="{{ request.form.name }}">
+            <dt>Event Date:
+            <dd><input type="date" name="date" min="{{today}}" value="{{ request.form.date }}">
+        </dl>
+        <div class="actions"><input type="submit" value="Request"></div>
+    </div>
+</form>
+{% endblock %}

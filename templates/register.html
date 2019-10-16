@@ -1,0 +1,44 @@
+﻿{% extends "layout.html" %}
+
+{% block title %}
+    {% if curr_user %}
+        Register Staff
+    {% else %}
+        Sign Up
+    {% endif %}
+{% endblock %}
+
+{% block navlink %}
+    {% if curr_user %}
+    <li><a href="{{url_for('register')}}">Register Staff</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if error %}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="alert-heading">Error!</h4>
+    <p>{{error}}</p>
+</div>
+{% endif %}
+
+<h2>{{self.title()}}</h2>
+<form action="" method="post">
+    <div class="form-group">
+        <dl>
+            <dt>Name:
+            <dd><input type="text" name="name" size="30" value="{{ request.form.name }}">
+            <dt>Username:
+            <dd><input type="text" name="username" size="30" value="{{ request.form.username }}">
+            <dt>E-Mail:
+            <dd><input type="text" name="email" size="30" value="{{ request.form.email }}">
+            <dt>Password:
+            <dd><input type="password" name="password" size="30">
+            <dt>Confirm Password:
+            <dd><input type="password" name="password2" size="30">
+        </dl>
+        <div class="actions"><input type="submit" value="Sign Up"></div>
+    </div>
+</form>
+{% endblock %}

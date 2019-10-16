@@ -1,0 +1,55 @@
+﻿{% extends "layout.html" %}
+
+{% block title %}Staff{% endblock %}
+
+
+{% block content %}
+
+{% if error %}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="alert-heading">Error!</h4>
+    <p>{{error}}</p>
+</div>
+{% endif %}
+
+<h3>Upcoming Scheduled Events</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{event.date}}</td>
+            <td>{{event.name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br />
+
+<h3>Available Events to Sign Up</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in avail_events %}
+        <tr>
+            <td>{{event.date}}</td>
+            <td>{{event.name}}</td>
+            <td><a role="button" class="btn btn-info" href="/edit/{{event.event_id}}">Sign Up</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

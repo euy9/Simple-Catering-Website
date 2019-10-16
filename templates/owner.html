@@ -1,0 +1,57 @@
+﻿{% extends "layout.html" %}
+
+{% block title %}Owner{% endblock %}
+
+{% block navlink %}
+<li><a href="{{url_for('register')}}">Register Staff</a></li>
+{% endblock %}
+
+
+{% block content %}
+
+{% if not events %}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="alert-heading">Warning!</h4>
+    <p>No event is scheduled.</p>
+</div>
+{% endif %}
+{% if no_staff_warning%}
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h4 class="alert-heading">Warning!</h4>
+    {% for no_staff in no_staff_warning %}
+    <p>
+        <strong>{{no_staff.name}}</strong> scheduled on
+        <strong>{{no_staff.date}}</strong> has no staff signed up to work.
+    </p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<h3>Upcoming Events</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Name</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Staff #1</th>
+            <th scope="col">Staff #2</th>
+            <th scope="col">Staff #3</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{event.date}}</td>
+            <td>{{event.name}}</td>
+            <td>{{event.requestor.name}}</td>
+            <td>{{event.staff1.name}}</td>
+            <td>{{event.staff2.name}}</td>
+            <td>{{event.staff3.name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

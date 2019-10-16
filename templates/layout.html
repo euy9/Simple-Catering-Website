@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %} | Sol's Catering</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="view">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{url_for('homepage')}}">Sol's Catering</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav text-uppercase ml-auto">
+                        <li class="active"><a href="{{url_for('homepage')}}">Home</a></li>
+                        {% block navlink %}{% endblock %}
+                    </ul>
+                    <!-- if logged in-->
+                    <div class="nav navbar-nav navbar-right">
+                        {% if g.user %}
+                        <a href="{{url_for('logout')}}" class="navbar-brand">Sign Out</a>
+                        {% else %}
+                        <a href="{{url_for('register')}}" class="navbar-brand">Sign Up</a>
+                        <a href="{{url_for('login')}}" class="navbar-brand">Sign In</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            {% with flashes = get_flashed_messages() %}
+            {% if flashes %}
+            {% for message in flashes %}
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                {{message}}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+            <br />
+            <hr />
+            <footer>
+                <p>&copy; {{ year }} - Sol's Catering</p>
+            </footer>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </div>
+</body>
+</html>
+
+
